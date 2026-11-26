@@ -1,0 +1,44 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form đăng ký</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+        <form id="registerForm">
+            <h2>ĐĂNG KÝ TÀI KHOẢN</h2>
+            <p class="subtitle">Tạo tài khoản mới của bạn</p>
+
+            <label for="name">Họ và tên</label>
+            <input type="text" id="name"
+                   placeholder="Nhập họ và tên" required>
+
+            <label for="email">Email</label>
+            <input type="email" id="email"
+                   placeholder="Nhập email" required>
+
+            <label for="password">Mật khẩu</label>
+            <input type="password" id="password"
+                   placeholder="Nhập mật khẩu" required>
+
+            <div class="terms">
+                <input type="checkbox" id="agree">
+                <label for="agree">
+                    Tôi đồng ý với điều khoản sử dụng
+                </label>
+            </div>
+
+            <button type="submit">Đăng ký</button>
+
+            <p id="message"></p>
+        </form>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
