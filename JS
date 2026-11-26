@@ -1,0 +1,98 @@
+
+// Lấy các phần tử HTML
+const timer = document.getElementById("timer");
+const startBtn = document.getElementById("startBtn");
+const pauseBtn = document.getElementById("pauseBtn");
+const resetBtn = document.getElementById("resetBtn");
+const status = document.getElementById("status");
+const modal = document.getElementById("modal");
+const closeBtn = document.getElementById("closeBtn");
+
+// Thời gian ban đầu: 10 phút
+const initialTime = 10 * 60;
+
+let timeLeft = initialTime;
+let interval = null;
+
+// Hiển thị thời gian MM:SS
+function updateTimer() {
+    let minutes = Math.floor(timeLeft / 60);
+    let seconds = timeLeft % 60;
+
+    timer.textContent =
+        String(minutes).padStart(2, "0") + ":" +
+        String(seconds).padStart(2, "0");
+
+    // Hiệu ứng khi còn dưới 1 phút
+    if (timeLeft < 60) {
+        timer.classList.add("warning");
+    } else {
+        timer.classList.remove("warning");
+    }
+}
+
+// Bắt đầu đếm ngược
+function startTimer() {
+
+    // Tránh tạo nhiều interval
+    if (interval !== null || timeLeft <= 0) {
+        return;
+    }
+
+    status.textContent = "Đang đếm ngược...";
+
+    interval = setInterval(function() {
+
+        timeLeft--;
+
+        updateTimer();
+
+        // Khi hết thời gian
+        if (timeLeft <= 0) {
+            clearInterval(interval);
+            interval = null;
+
+            timeLeft = 0;
+            updateTimer();
+
+            status.textContent = "Đã hết thời gian!";
+            modal.style.display = "flex";
+        }
+
+    }, 1000);
+}
+
+// Tạm dừng đồng hồ
+function pauseTimer() {
+    if (interval !== null) {
+        clearInterval(interval);
+        interval = null;
+        status.textContent = "Đã tạm dừng!";
+    }
+}
+
+// Đặt lại đồng hồ
+function resetTimer() {
+    clearInterval(interval);
+    interval = null;
+
+    timeLeft = initialTime;
+
+    updateTimer();
+
+    status.textContent = "Đã đặt lại đồng hồ!";
+    modal.style.display = "none";
+}
+
+// Đóng thông báo
+closeBtn.addEventListener("click", function() {
+    modal.style.display = "none";
+});
+
+// Gắn sự kiện cho các nút
+startBtn.addEventListener("click", startTimer);
+pauseBtn.addEventListener("click", pauseTimer);
+resetBtn.addEventListener("click", resetTimer);
+
+// Hiển thị thời gian ban đầu
+updateTimer();
